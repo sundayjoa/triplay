@@ -1,11 +1,12 @@
 import Image from "next/image";
+import Navbar from '@/components/Navbar';
 
 export default function Home() {
   return (
     <main>
-      <div>
-        <p>홈페이지 화면입니다.</p>
-      </div>
+      <Navbar />  
+      <h1>트립플레이에 오신 것을 환영합니다!</h1>
     </main>
   );
 }
+

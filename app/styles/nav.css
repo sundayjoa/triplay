@@ -1,0 +1,60 @@
+@font-face {
+    font-family: 'MapoBackpacking';
+    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/MapoBackpackingA.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'SUITE-Regular';
+    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2304-2@1.0/SUITE-Regular.woff2') format('woff2');
+    font-weight: 400;
+    font-style: normal;
+}
+
+body{
+    padding: 30px 180px;
+    font-family: 'SUITE-Regular' !important;
+    background: white;
+}
+
+.nav-container{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 50px;
+}
+
+.login-btn{
+    display: flex;
+    justify-content: flex-end;
+    font-size: 20px;
+    margin-top: 20px;
+    margin-bottom: 15px;
+}
+
+.login-btn:hover{
+    color: rgb(25, 106, 182);
+}
+
+.project-title{
+    font-family: 'MapoBackpacking' !important;
+    font-weight: bold !important;
+    font-size: 50px;
+    color: rgb(25, 106, 182);
+}
+
+.tourist-attractions,
+.events-festivals,
+.travel-courses{
+    font-size: 30px;
+    padding: 70px;
+    text-align: center;
+    font-weight: bold !important;
+}
+
+.tourist-attractions:hover,
+.events-festivals:hover,
+.travel-courses:hover{
+    color: rgb(25, 106, 182);
+}
