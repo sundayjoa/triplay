@@ -1,9 +1,9 @@
 import { configureStore } from '@reduxjs/toolkit';
-import counterReducer from './slices/counterSlice';  // 임시 리듀서 임포트
+import tourReducer from './slices/tourSlice'; 
 
 export const store = configureStore({
     reducer: {
-        counter: counterReducer,  // 스토어에 리듀서 추가
+        tour: tourReducer, 
     },
 });
 

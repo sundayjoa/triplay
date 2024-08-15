@@ -1,0 +1,111 @@
+@font-face {
+    font-family: 'SUITE-Regular';
+    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2304-2@1.0/SUITE-Regular.woff2') format('woff2');
+    font-weight: 400;
+    font-style: normal;
+}
+
+body{
+    font-family: 'SUITE-Regular' !important;
+    background: white;
+    font-family: 'SUITE-Regular';
+    align-items: center;
+}
+
+.slider {
+    position: relative;
+    width: 100vw;
+    height: 800px;
+    margin-left: calc(-50vw + 50%);
+    margin-right: calc(-50vw + 50%);
+    overflow: hidden;
+    display: flex;
+    justify-content: center; 
+    align-items: center; 
+}
+
+.slide {
+    position: relative;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+.bakground-image {
+    filter: blur(8px) brightness(25%);
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: 1;
+}
+
+.front-image-wrapper {
+    position: relative;
+    width: 100%;
+    height: 650px;
+}
+
+.front-image {
+    width: calc(100% - 360px) !important;
+    height: 650px !important;
+    z-index: 2;
+    position: relative; 
+    margin: 0 auto;
+    display: block;
+    align-self: center;
+    border-radius: 30px;
+}
+
+.overlay-section {
+    position: absolute;
+    right: 0;
+    width: calc(40% - 144px);
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    display: flex;
+    right: calc((100% - (100% - 360px)) / 2);
+    border-radius: 0 30px 30px 0;
+    z-index: 3;
+}
+
+.tours-title {
+    position: absolute;
+    top: 20px;
+    left: 200px;
+    z-index: 3;
+    font-size: 50px;
+    font-weight: bold !important;
+    color: white;
+    background-color: rgba(0, 0, 0, 0.6);
+    padding: 10px;
+    border-radius: 30px;
+    max-width: calc(60% - 216px);
+    word-wrap: break-word;
+}
+
+.destination-heading {
+    color: white;
+    z-index: 3;
+    font-weight: bold;
+    font-size: 30px;
+    margin-top: 50px;
+    margin-left: 50px;
+}
+
+.select-destination {
+    position: absolute;
+    z-index: 3;
+    color: white;
+    font-size: 25px;
+    margin-top: 120px;
+    margin-left: 70px;
+    font-weight: bold;
+}
