@@ -7,6 +7,8 @@ import { RootState, AppDispatch } from '@/store/store';
 import Image from 'next/image';
 import Navbar from '@/components/Navbar';
 import '../app/styles/home.css';
+import RegionSelect from '@/components/RegionSelect';
+import Link from 'next/link';
 
 export default function Home() {
   const dispatch = useDispatch<AppDispatch>();
@@ -53,6 +55,8 @@ export default function Home() {
               <div className='overlay-section'>
                 <h2 className='destination-heading'>어디로 떠나볼까요?</h2>
                 <h2 className='select-destination'>여행지 선택</h2>
+                <RegionSelect />
+                <Link href="#" className='search-btn'>선택하기</Link>
               </div>
               <h2 className='tours-title'>{tours[currentIndex].title}</h2>
             </div>

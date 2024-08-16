@@ -8,7 +8,6 @@
 body{
     font-family: 'SUITE-Regular' !important;
     background: white;
-    font-family: 'SUITE-Regular';
     align-items: center;
 }
 
@@ -67,7 +66,7 @@ body{
 .overlay-section {
     position: absolute;
     right: 0;
-    width: calc(40% - 144px);
+    width: auto;
     height: 100%;
     background-color: rgba(0, 0, 0, 0.7);
     display: flex;
@@ -95,17 +94,91 @@ body{
     color: white;
     z-index: 3;
     font-weight: bold;
-    font-size: 30px;
-    margin-top: 50px;
+    font-size: 40px;
+    margin-top: 100px;
     margin-left: 50px;
+    margin-right: 50px;
+    
 }
 
 .select-destination {
     position: absolute;
     z-index: 3;
     color: white;
-    font-size: 25px;
-    margin-top: 120px;
-    margin-left: 70px;
+    font-size: 30px;
+    top: 30%;
+    left: 15%;
     font-weight: bold;
 }
+
+/*지역 선택*/
+.regionSelectContainer {
+    display: flex;
+    align-items: center;
+    position: absolute;
+    left: 15%;
+    top: 40%;
+    width: 200px; 
+    z-index: 1000;
+  }
+  
+  .regionFilter {
+    appearance: none;
+    padding: 10px 10px 10px 30px;
+    font-size: 25px;
+    color: white;
+    background-color: transparent;
+    border: none;
+    border-bottom: 3px solid rgb(25, 106, 182);
+    cursor: pointer;
+    width: 100%; 
+  }
+  
+  .icon {
+    position: absolute;
+    left: 10px;
+    font-size: 24px;
+    color: white;
+    pointer-events: none;
+  }
+  
+  .dropdownList {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    max-height: 150px;
+    overflow-y: auto;
+    background-color: white;
+    border: 1px solid #ccc;
+    z-index: 3;
+  }
+  
+  .dropdownItem {
+    padding: 10px;
+    text-align: center;
+    color: black;
+    cursor: pointer;
+    font-size: 20px;
+  }
+  
+  .dropdownItem:hover {
+    background-color: #f0f0f0;
+  }
+
+  .search-btn {
+    position: absolute;
+    color: black;
+    font-size: 22px;
+    z-index: 999;
+    background-color: white;
+    width: 70%;
+    top: 55%;
+    height: 60px;
+    padding: 12px 0px;
+    left: 15%;
+    right: 15%;
+    border-radius: 10px;
+    font-family: 'SUITE' !important;
+    font-weight: bold !important;
+  }

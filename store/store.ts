@@ -1,9 +1,11 @@
 import { configureStore } from '@reduxjs/toolkit';
 import tourReducer from './slices/tourSlice'; 
+import regionReducer from './slices/regionSlice';
 
 export const store = configureStore({
     reducer: {
         tour: tourReducer, 
+        region: regionReducer,
     },
 });
 

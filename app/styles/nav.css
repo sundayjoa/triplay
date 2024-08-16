@@ -34,7 +34,7 @@ body{
 }
 
 .login-btn:hover{
-    color: rgb(25, 106, 182);
+    color: rgb(25, 106, 182) !important;
 }
 
 .project-title{
@@ -48,9 +48,10 @@ body{
 .events-festivals,
 .travel-courses{
     font-size: 30px;
-    padding: 70px;
+    padding: 10px 50px;
     text-align: center;
     font-weight: bold !important;
+    display: inline-block;
 }
 
 .tourist-attractions:hover,
