@@ -21,15 +21,20 @@ export default function Home() {
   }, [dispatch]);
 
   useEffect(() => {
-    const interval = setInterval(() => {
-      setCurrentIndex((prevIndex) => (prevIndex + 1) % tours.length);
-    }, 3000);
+    if (tours.length > 0) {
+      const interval = setInterval(() => {
+        setCurrentIndex((prevIndex) => (prevIndex + 1) % tours.length);
+      }, 3000);
 
-    return () => clearInterval(interval);
+      return () => clearInterval(interval);
+    }
   }, [tours]);
 
   if (loading) return <p>Loading...</p>;
   if (error) return <p>{error}</p>;
+
+  const currentPage = currentIndex + 1;
+  const totalPages = tours.length;
 
   return (
     <main>
@@ -52,6 +57,12 @@ export default function Home() {
                 objectFit="cover"
                 className='front-image'
               />
+              <div className='detail-link'>
+                <Link href='#'>자세한 내용 보러 가기 →</Link>
+              </div>
+              <div className='page-number'>
+                {currentPage}/{totalPages}
+              </div>
               <div className='overlay-section'>
                 <h2 className='destination-heading'>어디로 떠나볼까요?</h2>
                 <h2 className='select-destination'>여행지 선택</h2>

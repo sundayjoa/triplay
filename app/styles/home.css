@@ -63,6 +63,33 @@ body{
     border-radius: 30px;
 }
 
+.detail-link {
+    z-index: 1000;
+    position: absolute;
+    padding: 5px 20px;
+    border-radius: 30px;
+    color: white;
+    font-size: 25px;
+    background-color: rgba(0, 0, 0, 0.6);
+    font-weight: bold !important;
+    top: 80%;
+    left: 200px;
+
+}
+
+.page-number{
+    position: absolute;
+    z-index: 1500;
+    font-size: 25px;
+    background-color: rgba(0, 0, 0, 0.6);
+    color: white;
+    top: 90%;
+    padding: 5px 20px;
+    border-radius: 30px;
+    left: 200px;
+    font-weight: bold !important;
+}
+
 .overlay-section {
     position: absolute;
     right: 0;
