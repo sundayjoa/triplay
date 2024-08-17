@@ -1,0 +1,71 @@
+@font-face {
+    font-family: 'SUITE-Regular';
+    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2304-2@1.0/SUITE-Regular.woff2') format('woff2');
+    font-weight: 400;
+    font-style: normal;
+}
+
+body{
+    font-family: 'SUITE-Regular' !important;
+    background: white;
+    align-items: center;
+    min-width: 1140px !important;
+    overflow-x: auto;
+}
+
+.regionSelectContainer {
+    display: flex;
+    align-items: center;
+    position: absolute;
+    left: 10%;
+    top: 28%;
+    width: 180px; 
+  }
+  
+  .regionFilter {
+    appearance: none;
+    padding: 10px 10px 10px 65px;
+    font-size: 25px;
+    background-color: transparent;
+    border: none;
+    border: none;
+    cursor: pointer;
+    width: 80%; 
+  }
+
+  .regionFilter:hover {
+    padding: 10px 10px 10px 60px;
+    border: 2px solid rgb(25, 106, 182);
+    border-radius: 15px;
+  }
+  
+  .icon {
+    position: absolute;
+    left: 10px;
+    font-size: 24px;
+    pointer-events: none;
+  }
+  
+  .dropdownList {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    max-height: 250px;
+    overflow-y: auto;
+    background-color: white;
+    border: 1px solid #ccc;
+    width: 80%;
+  }
+  
+  .dropdownItem {
+    padding: 10px;
+    text-align: center;
+    color: black;
+    cursor: pointer;
+    font-size: 20px;
+  }
+  
+  .dropdownItem:hover {
+    background-color: #f0f0f0;
+  }

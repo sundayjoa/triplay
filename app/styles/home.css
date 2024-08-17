@@ -9,6 +9,8 @@ body{
     font-family: 'SUITE-Regular' !important;
     background: white;
     align-items: center;
+    min-width: 1140px !important;
+    overflow-x: auto;
 }
 
 .slider {
@@ -28,6 +30,7 @@ body{
     top: 0;
     left: 0;
     width: 100%;
+    min-width: 1140px;
     height: 100%;
     display: flex;
     align-items: center;
@@ -41,6 +44,7 @@ body{
     top: 0;
     left: 0;
     width: 100%;
+    min-width: 1140px;
     height: 100%;
     object-fit: cover;
     z-index: 1;
@@ -49,6 +53,7 @@ body{
 .front-image-wrapper {
     position: relative;
     width: 100%;
+    min-width: 1140px;
     height: 650px;
 }
 

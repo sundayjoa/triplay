@@ -16,6 +16,7 @@ body{
     padding: 30px 180px;
     font-family: 'SUITE-Regular' !important;
     background: white;
+    min-width: 1140px !important;
 }
 
 .nav-container{
@@ -57,5 +58,11 @@ body{
 .tourist-attractions:hover,
 .events-festivals:hover,
 .travel-courses:hover{
+    color: rgb(25, 106, 182);
+}
+
+.events-festivals.active {
+    font-size: 32px;
+    font-weight: bold !important;
     color: rgb(25, 106, 182);
 }
