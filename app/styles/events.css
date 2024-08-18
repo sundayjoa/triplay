@@ -4,62 +4,204 @@
     font-weight: 400;
     font-style: normal;
 }
+.body{
+  font-family: 'SUITE-Regular' !important;
+}
 
 .regionSelectContainer {
     display: flex;
     align-items: center;
     position: absolute;
-    left: 10%;
-    top: 28%;
+    left: 180px;
+    top: 220px;
     width: 180px; 
   }
   
-  .regionFilter {
-    appearance: none;
-    padding: 10px 10px 10px 65px;
-    font-size: 25px; 
-    background-color: transparent;
-    border: 2px solid black;
-    cursor: pointer;
-    width: 80%; 
-    color: black;
-    border-radius: 15px;
-  }
+.regionFilter {
+  appearance: none;
+  padding: 10px 10px 10px 65px;
+  font-size: 25px; 
+  background-color: transparent;
+  border: 2px solid black;
+  cursor: pointer;
+  width: 80%; 
+  color: black;
+  border-radius: 15px;
+}
 
-  .regionFilter:hover {
-    padding: 10px 10px 10px 60px;
-    border: 2px solid rgb(25, 106, 182);
-    border-radius: 15px;
-  }
-  
-  .icon {
-    position: absolute;
-    left: 15px;
-    font-size: 24px;
-    pointer-events: none;
-    color: black;
-  }
-  
-  .dropdownList {
-    position: absolute;
-    top: 100%;
-    left: 0;
-    right: 0;
-    max-height: 250px;
-    overflow-y: auto;
-    background-color: white;
-    border: 1px solid #ccc;
-    width: 80%;
-  }
-  
-  .dropdownItem {
-    padding: 10px;
-    text-align: center;
-    color: black;
-    cursor: pointer;
-    font-size: 20px;
-  }
-  
-  .dropdownItem:hover {
-    background-color: #f0f0f0;
-  }
+.regionFilter:hover {
+  padding: 10px 10px 10px 60px;
+  border: 2px solid rgb(25, 106, 182);
+  border-radius: 15px;
+}
+
+.icon {
+  position: absolute;
+  left: 15px;
+  font-size: 24px;
+  pointer-events: none;
+  color: black;
+}
+
+.dropdownList {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  max-height: 250px;
+  overflow-y: auto;
+  background-color: white;
+  border: 1px solid #ccc;
+  width: 80%;
+  z-index: 1000;
+}
+
+.dropdownItem {
+  padding: 10px;
+  text-align: center;
+  color: black;
+  cursor: pointer;
+  font-size: 20px;
+}
+
+.dropdownItem:hover {
+  background-color: #f0f0f0;
+}
+
+.calendar-container{
+  display: flex;
+  align-items: center;
+  position: absolute;
+  left: 350px;
+  top: 220px;
+  width: 320px; 
+  border-radius: 15px;
+  font-size: 25px;
+  border: 2px solid black;
+}
+
+.calendar-filter{
+  padding: 10px 10px 10px 10px;
+}
+
+.calendar-date{
+  width: 250px; 
+  text-align: center;
+  cursor: pointer;
+}
+
+.calendar-date::-webkit-calendar-picker-indicator {
+  cursor: pointer;
+}
+
+.nextdate-btn{
+  margin-left: 10px;
+}
+
+/*날짜별 행사*/
+.slider-container{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100vw;
+  min-width: 1140px;
+  overflow: hidden;
+  margin-top: 200px;
+  padding: 0px 180px;
+  z-index: 999;
+}
+
+.prev-btn,
+.next-btn {
+  font-size: 50px;
+  background: #f0f0f0;
+  padding: 0 25px;
+  border-radius: 360px;
+  text-align: center;
+}
+
+.prev-btn:hover,
+.next-btn:hover {
+  background: #c5c5c5;
+}
+
+.image-container{
+  display: flex;
+  justify-content: space-between;
+  width: calc(100% - 150px);
+  min-width: 1140px;
+  padding: 0 10px;
+}
+
+.image-card{
+  flex: 1;
+  margin: 0 20px;
+  position: relative;
+  overflow: hidden;
+
+}
+
+.image{
+  width: 100%;
+  aspect-ratio: 7 / 9;
+  object-fit: cover;
+  display: block;
+}
+
+.description{
+  position: absolute;
+  bottom: -65%;
+  margin-right: 10px;
+  width: 100%;
+  height: 65%;
+  background-color: rgba(0, 0, 0, 0.7);
+  opacity: 0 !important;
+  visibility: hidden !important;
+  pointer-events: none;
+  transition: bottom 0.5s ease, opacity 0.3s ease;
+  color: white;
+}
+
+.image-card:hover .description {
+  bottom: 0;
+  opacity: 1 !important;
+  visibility: visible !important;
+  pointer-events: auto;
+}
+
+.events-title{
+  font-weight: bold !important;
+  padding: 20px 20px;
+  position: absolute;
+  font-size: 24px;
+  word-wrap: break-word;
+}
+
+.events-place{
+  font-size: 20px;
+  font-weight: 200 !important;
+  margin-top: 15px;
+}
+
+.events-date {
+  font-size: 20px;
+  font-weight: 200 !important;
+}
+
+.detail-link {
+  position: absolute;
+  font-size: 23px;
+  font-weight: bold !important;
+  bottom: 20px;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: rgb(25, 106, 182);
+  padding: 5px 25px;
+  border-radius: 15px;
+  border: 2px solid black;
+}
+
+.detail-link:hover {
+  background-color: rgb(10, 55, 97);
+  color: #b6b6b6;
+}
