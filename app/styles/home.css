@@ -5,20 +5,6 @@
     font-style: normal;
 }
 
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
-body{
-    font-family: 'SUITE-Regular' !important;
-    background: white;
-    align-items: center;
-    min-width: 1140px !important;
-    overflow-x: auto;
-}
-
 .slider {
     position: relative;
     width: 100vw;

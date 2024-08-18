@@ -5,14 +5,6 @@
     font-style: normal;
 }
 
-body{
-    font-family: 'SUITE-Regular' !important;
-    background: white;
-    align-items: center;
-    min-width: 1140px !important;
-    overflow-x: auto;
-}
-
 .regionSelectContainer {
     display: flex;
     align-items: center;
@@ -25,12 +17,13 @@ body{
   .regionFilter {
     appearance: none;
     padding: 10px 10px 10px 65px;
-    font-size: 25px;
+    font-size: 25px; 
     background-color: transparent;
-    border: none;
-    border: none;
+    border: 2px solid black;
     cursor: pointer;
     width: 80%; 
+    color: black;
+    border-radius: 15px;
   }
 
   .regionFilter:hover {
@@ -41,9 +34,10 @@ body{
   
   .icon {
     position: absolute;
-    left: 10px;
+    left: 15px;
     font-size: 24px;
     pointer-events: none;
+    color: black;
   }
   
   .dropdownList {

@@ -5,6 +5,10 @@ interface Option {
     value: string;
     label: string;
   }
+
+  interface RegionSelectProps {
+    className?: string;
+}
   
   const options: Option[] = [
     { value: '', label: '전체' },
@@ -27,7 +31,7 @@ interface Option {
     { value: '39', label: '제주' },
   ];
   
-  const CustomDropdown: React.FC = () => {
+  const CustomDropdown: React.FC<RegionSelectProps> = ({ className }) => {
     const [selectedOption, setSelectedOption] = useState<Option | null>(null);
     const [isOpen, setIsOpen] = useState(false);
   

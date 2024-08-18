@@ -1,13 +1,25 @@
 "use client";
 
 import Link from 'next/link';
-import React from "react";
+import React, { useEffect } from "react";
 import { usePathname } from 'next/navigation';
 import '../app/styles/nav.css';
 
-
 const Navbar = () => {
     const pathname = usePathname();
+
+    useEffect(() => {
+        if (typeof window !== 'undefined' && sessionStorage.getItem('reloaded') === 'false') {
+            sessionStorage.setItem('reloaded', 'true');
+            window.location.reload();
+        }
+    }, [pathname]);
+
+    const handleClick = () => {
+        if (typeof window !== 'undefined') {
+            sessionStorage.setItem('reloaded', 'false');
+        }
+    };
 
     return (
         <nav>
@@ -24,8 +36,11 @@ const Navbar = () => {
                     <Link href="#" className='tourist-attractions'>
                         관광지
                     </Link>
-                    <Link href="/eventsPage" 
-                    className={`events-festivals ${pathname === '/eventsPage' ? 'active' : ''}`}>
+                    <Link 
+                        href="/eventsPage"
+                        className={`events-festivals ${pathname === '/eventsPage' ? 'active' : ''}`}
+                        onClick={handleClick} // 클릭 시 새로고침 플래그 설정
+                    >
                         축제/공연/행사
                     </Link>
                     <Link href="#" className='travel-courses'>
@@ -37,4 +52,5 @@ const Navbar = () => {
     )
 }
 
-export default Navbar
+export default Navbar;
+
