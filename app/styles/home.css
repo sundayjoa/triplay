@@ -5,6 +5,12 @@
     font-style: normal;
 }
 
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
 body{
     font-family: 'SUITE-Regular' !important;
     background: white;
@@ -16,13 +22,13 @@ body{
 .slider {
     position: relative;
     width: 100vw;
+    min-width: 1140px;
     height: 800px;
-    margin-left: calc(-50vw + 50%);
-    margin-right: calc(-50vw + 50%);
+    margin: 0 auto;
     overflow: hidden;
     display: flex;
-    justify-content: center; 
-    align-items: center; 
+    justify-content: center;
+    align-items: center;
 }
 
 .slide {
@@ -43,22 +49,26 @@ body{
     position: absolute;
     top: 0;
     left: 0;
-    width: 100%;
-    min-width: 1140px;
+    right: 0;
+    bottom: 0; 
+    width: 100%; 
     height: 100%;
     object-fit: cover;
     z-index: 1;
+    transform: scale(1.05); 
+    transform-origin: center center; 
 }
 
 .front-image-wrapper {
-    position: relative;
-    width: 100%;
+    position: absolute;
+    width: 1140px;
     min-width: 1140px;
     height: 650px;
+    margin: 0px 180px;
 }
 
 .front-image {
-    width: calc(100% - 360px) !important;
+    width: 100%;
     height: 650px !important;
     z-index: 2;
     position: relative; 
@@ -78,8 +88,7 @@ body{
     background-color: rgba(0, 0, 0, 0.6);
     font-weight: bold !important;
     top: 80%;
-    left: 200px;
-
+    left: 25px;
 }
 
 .page-number{
@@ -91,26 +100,14 @@ body{
     top: 90%;
     padding: 5px 20px;
     border-radius: 30px;
-    left: 200px;
+    left: 25px;
     font-weight: bold !important;
-}
-
-.overlay-section {
-    position: absolute;
-    right: 0;
-    width: auto;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.7);
-    display: flex;
-    right: calc((100% - (100% - 360px)) / 2);
-    border-radius: 0 30px 30px 0;
-    z-index: 3;
 }
 
 .tours-title {
     position: absolute;
     top: 20px;
-    left: 200px;
+    left: 25px;
     z-index: 3;
     font-size: 50px;
     font-weight: bold !important;
@@ -118,8 +115,19 @@ body{
     background-color: rgba(0, 0, 0, 0.6);
     padding: 10px;
     border-radius: 30px;
-    max-width: calc(60% - 216px);
+    max-width: 700px;
     word-wrap: break-word;
+}
+
+.overlay-section {
+    position: absolute;
+    right: 0px;
+    width: 410px;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    display: flex;
+    border-radius: 0 30px 30px 0;
+    z-index: 3;
 }
 
 .destination-heading {
@@ -128,9 +136,7 @@ body{
     font-weight: bold;
     font-size: 40px;
     margin-top: 100px;
-    margin-left: 50px;
-    margin-right: 50px;
-    
+    margin-left: 50px; 
 }
 
 .select-destination {
@@ -179,7 +185,7 @@ body{
     top: 100%;
     left: 0;
     right: 0;
-    max-height: 150px;
+    max-height: 200px;
     overflow-y: auto;
     background-color: white;
     border: 1px solid #ccc;
