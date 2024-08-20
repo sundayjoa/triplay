@@ -14,6 +14,7 @@ export default function Home() {
   const dispatch = useDispatch<AppDispatch>();
   const { tours, loading, error } = useSelector((state: RootState) => state.tour);
   const [currentIndex, setCurrentIndex] = useState(0);
+  const [selectedAreaCode, setSelectedAreaCode] = useState<string>('');
 
   //가져온 행사 이미지 메인 페이지에 띄우기
   useEffect(() => {
@@ -66,7 +67,7 @@ export default function Home() {
               <div className='overlay-section'>
                 <h2 className='destination-heading'>어디로 떠나볼까요?</h2>
                 <h2 className='select-destination'>여행지 선택</h2>
-                <RegionSelect />
+                <RegionSelect onChange={setSelectedAreaCode} selectedAreaCode={selectedAreaCode} />
                 <Link href="#" className='search-btn'>선택하기</Link>
               </div>
               <h2 className='tours-title'>{tours[currentIndex].title}</h2>

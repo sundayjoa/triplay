@@ -188,7 +188,7 @@
   font-weight: 200 !important;
 }
 
-.detail-link {
+.events-link {
   position: absolute;
   font-size: 23px;
   font-weight: bold !important;
@@ -201,7 +201,7 @@
   border: 2px solid black;
 }
 
-.detail-link:hover {
+.events-link:hover {
   background-color: rgb(10, 55, 97);
   color: #b6b6b6;
 }

@@ -64,6 +64,7 @@
     border-radius: 30px;
 }
 
+
 .detail-link {
     z-index: 1000;
     position: absolute;
@@ -205,4 +206,8 @@
     border-radius: 10px;
     font-family: 'SUITE' !important;
     font-weight: bold !important;
+  }
+
+  .search-btn:hover {
+    background-color: #ccc;
   }

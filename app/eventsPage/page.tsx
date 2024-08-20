@@ -1,27 +1,45 @@
 "use client";
 
+import React, { useEffect, useState } from 'react';
 import Navbar from "@/components/Navbar";
 import '../styles/events.css';
 import RegionSelect from '@/components/RegionSelect';
 import Calendar from '@/components/Calendar';
 import Slider from "@/components/Slider";
+import { fetchEventsByArea } from '@/store/slices/eventSlice';
+import { useDispatch, useSelector } from 'react-redux';
+import { RootState, AppDispatch } from '@/store/store';
 
 const EventsPage: React.FC = () => {
-    
-    const images = [
-        { id: 1, imageUrl: 'https://via.placeholder.com/150', description: 'Sample 1' , place: '서울 특별시 은평구', date: '2023-12-11 ~ 2023-12-16' },
-        { id: 2, imageUrl: 'https://via.placeholder.com/150', description: 'Sample 2' , place: '서울 특별시 은평구', date: '2023-12-11 ~ 2023-12-16' },
-        { id: 3, imageUrl: 'https://via.placeholder.com/150', description: 'Sample 3' , place: '서울 특별시 은평구', date: '2023-12-11 ~ 2023-12-16' },
-        { id: 4, imageUrl: 'https://via.placeholder.com/150', description: 'Sample 4' , place: '서울 특별시 은평구', date: '2023-12-11 ~ 2023-12-16' },
-        { id: 5, imageUrl: 'https://via.placeholder.com/150', description: 'Sample 5' , place: '서울 특별시 은평구', date: '2023-12-11 ~ 2023-12-16' },
-    ];
+    const dispatch = useDispatch<AppDispatch>();
+    const { events, loading, error } = useSelector((state: RootState) => state.event);
+    const [selectedAreaCode, setSelectedAreaCode] = useState<string>('');
+
+    useEffect(() => {
+        dispatch(fetchEventsByArea(selectedAreaCode));
+    }, [dispatch, selectedAreaCode]);
+
+
+    if (loading) return <p>Loading...</p>;
+    if (error) return <p>{error}</p>;
+
+    const eventImages = events.map(event => ({
+        id: event.contentid,
+        imageUrl: event.firstimage,
+        description: event.title,
+        place: event.addr1,
+        date: "sample"
+    }));
 
     return (
         <main>
             <Navbar />
-            <RegionSelect />
+            <RegionSelect onChange={setSelectedAreaCode} selectedAreaCode={selectedAreaCode} />
             <Calendar />
-            <Slider images={images} />
+            <Slider images={eventImages} />
+            <div className="events-pages">
+
+            </div>
         </main>
     );
 };

@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import Link from 'next/link';
 
 interface ImageData{
-    id: number;
+    id: string;
     imageUrl: string;
     description: string;
     place: string;
@@ -37,7 +37,7 @@ const Slider: React.FC<{images: ImageData[]} >= ({ images }) => {
                                 <p className='events-place'>{image.place}</p>
                                 <p className='events-date'>{image.date}</p>
                             </div>
-                            <Link href="#" className='detail-link'>구경가기</Link>
+                            <Link href="#" className='events-link'>구경가기</Link>
                         </div>
                     </div>
                 ))}

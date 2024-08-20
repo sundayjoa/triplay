@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { FaMapMarkerAlt } from 'react-icons/fa';
 
 interface Option {
@@ -8,6 +8,8 @@ interface Option {
 
   interface RegionSelectProps {
     className?: string;
+    onChange: (value: string) => void;
+    selectedAreaCode: string;
 }
   
   const options: Option[] = [
@@ -31,36 +33,42 @@ interface Option {
     { value: '39', label: '제주' },
   ];
   
-  const CustomDropdown: React.FC<RegionSelectProps> = ({ className }) => {
-    const [selectedOption, setSelectedOption] = useState<Option | null>(null);
+  const CustomDropdown: React.FC<RegionSelectProps> = ({ className, onChange, selectedAreaCode }) => {
+    const [selectedOption, setSelectedOption] = useState<Option>(options[0]);
     const [isOpen, setIsOpen] = useState(false);
   
+    useEffect(() => {
+        const initialOption = options.find(option => option.value === selectedAreaCode) || options[0];
+        setSelectedOption(initialOption); // 선택한 지역 코드에 따라 드롭다운 초기화
+    }, [selectedAreaCode]);
+
     const handleOptionClick = (option: Option) => {
       setSelectedOption(option);
+      onChange(option.value);
       setIsOpen(false);
     };
   
     return (
-      <div className='regionSelectContainer'>
-        <FaMapMarkerAlt className='icon' />
-        <div className='regionFilter' onClick={() => setIsOpen(!isOpen)}>
-          {selectedOption ? selectedOption.label : '전체'}
-        </div>
-        {isOpen && (
-          <div className='dropdownList'>
-            {options.map((option) => (
-              <div
-                key={option.value}
-                className='dropdownItem'
-                onClick={() => handleOptionClick(option)}
-              >
-                {option.label}
-              </div>
-            ))}
+      <div className={`regionSelectContainer ${className}`}>
+          <FaMapMarkerAlt className='icon' />
+          <div className='regionFilter' onClick={() => setIsOpen(!isOpen)}>
+              {selectedOption.label}
           </div>
-        )}
+          {isOpen && (
+              <div className='dropdownList'>
+                  {options.map((option) => (
+                      <div
+                          key={option.value}
+                          className='dropdownItem'
+                          onClick={() => handleOptionClick(option)}
+                      >
+                          {option.label}
+                      </div>
+                  ))}
+              </div>
+          )}
       </div>
-    );
-  };
+  );
+};
   
   export default CustomDropdown;
