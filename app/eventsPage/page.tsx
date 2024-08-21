@@ -17,24 +17,24 @@ dayjs.extend(isBetween);
 const EventsPage: React.FC = () => {
     const dispatch = useDispatch<AppDispatch>();
     const { events, loading, error } = useSelector((state: RootState) => state.event);
-    const selectedDateString = useSelector((state: RootState) => state.date.selectedDate);
-    const selectedDate = dayjs(selectedDateString); // 날짜 형식 변환
     const [selectedAreaCode, setSelectedAreaCode] = useState<string>('');
+    const selectedDateString = useSelector((state: RootState) => state.date.selectedDate);
+    const selectedDate = dayjs(selectedDateString).format('YYYYMMDD');
 
     //지역 선택 필터링
     useEffect(() => {
-        dispatch(fetchEventsByArea({ areaCode: selectedAreaCode, date: selectedDate.format('YYYYMMDD') }));
+        dispatch(fetchEventsByArea({ areaCode: selectedAreaCode, date: selectedDate }));
     }, [dispatch, selectedAreaCode, selectedDate]);
-
+    
     useEffect(() => {
-        dispatch(fetchEventsByArea({ areaCode: '', date: selectedDate.format('YYYYMMDD') }));
+        dispatch(fetchEventsByArea({ areaCode: '', date: selectedDate }));
     }, [dispatch, selectedDate]);
 
     //선택된 날짜에 따라 이벤트 필터링
     const filteredEvents = events.filter(event => {
-        const eventStart = dayjs(event.eventstartdate);
-        const eventEnd = dayjs(event.eventenddate);
-        return selectedDate.isBetween(eventStart, eventEnd, null, '[]');
+        const eventStart = dayjs(event.eventstartdate, 'YYYYMMDD');
+        const eventEnd = dayjs(event.eventenddate, 'YYYYMMDD');
+        return dayjs(selectedDate).isBetween(eventStart, eventEnd, null, '[]');
     });
 
     if (loading) return <p>Loading...</p>;
