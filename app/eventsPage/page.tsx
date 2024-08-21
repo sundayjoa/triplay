@@ -6,71 +6,50 @@ import '../styles/events.css';
 import RegionSelect from '@/components/RegionSelect';
 import Calendar from '@/components/Calendar';
 import Slider from "@/components/Slider";
-import { fetchEventsByArea, fetchEventDetails } from '@/store/slices/eventSlice';
+import { fetchEventsByArea } from '@/store/slices/eventSlice';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState, AppDispatch } from '@/store/store';
+import dayjs from 'dayjs';
+import isBetween from 'dayjs/plugin/isBetween';
+
+dayjs.extend(isBetween);
 
 const EventsPage: React.FC = () => {
     const dispatch = useDispatch<AppDispatch>();
     const { events, loading, error } = useSelector((state: RootState) => state.event);
+    const selectedDateString = useSelector((state: RootState) => state.date.selectedDate);
+    const selectedDate = dayjs(selectedDateString); // 날짜 형식 변환
     const [selectedAreaCode, setSelectedAreaCode] = useState<string>('');
-    const [eventDetailsMap, setEventDetailsMap] = useState<Record<string, { eventstartdate: string, eventenddate: string }>>({});
-    const selectedDate = useSelector((state: RootState) => state.date.selectedDate);
-    
+
+    //지역 선택 필터링
+    useEffect(() => {
+        dispatch(fetchEventsByArea({ areaCode: selectedAreaCode, date: selectedDate.format('YYYYMMDD') }));
+    }, [dispatch, selectedAreaCode, selectedDate]);
 
     useEffect(() => {
-        dispatch(fetchEventsByArea(selectedAreaCode));
-    }, [dispatch, selectedAreaCode]);
+        dispatch(fetchEventsByArea({ areaCode: '', date: selectedDate.format('YYYYMMDD') }));
+    }, [dispatch, selectedDate]);
 
-    useEffect(() => {
-        const fetchDetails = async () => {
-            const detailsMap: Record<string, { eventstartdate: string, eventenddate: string }> = {};
-
-            for (const event of events) {
-                try {
-                    const response = await fetchEventDetails(event.contentid);
-                    if (response && response.eventstartdate && response.eventenddate) {
-                        detailsMap[event.contentid] = {
-                            eventstartdate: response.eventstartdate,
-                            eventenddate: response.eventenddate
-                        };
-                    }
-                } catch (error) {
-                    console.error(`Failed to fetch details for event ${event.contentid}:`, error);
-                }
-            }
-
-            setEventDetailsMap(detailsMap);
-        };
-
-        fetchDetails();
-    }, [events]);
+    //선택된 날짜에 따라 이벤트 필터링
+    const filteredEvents = events.filter(event => {
+        const eventStart = dayjs(event.eventstartdate);
+        const eventEnd = dayjs(event.eventenddate);
+        return selectedDate.isBetween(eventStart, eventEnd, null, '[]');
+    });
 
     if (loading) return <p>Loading...</p>;
     if (error) return <p>{error}</p>;
 
-    //날짜 필터링
-    const filteredEvents = events.filter(event => {
-        const eventDetails = eventDetailsMap[event.contentid];
-        if (!eventDetails) return false;
-
-        const { eventstartdate, eventenddate } = eventDetails;
-
-        return selectedDate >= eventstartdate && selectedDate <= eventenddate;
-    });
-
     const eventImages = filteredEvents.map(event => {
-        const startDate = eventDetailsMap[event.contentid]?.eventstartdate;
-        const endDate = eventDetailsMap[event.contentid]?.eventenddate;
-        
         return {
             id: event.contentid,
-            imageUrl: event.firstimage,
-            description: event.title,
-            place: event.addr1,
-            date: startDate && endDate ? `${startDate} ~ ${endDate}` : 'Unknown Date'
+            imageUrl: event.firstimage || null, // null 처리
+            description: event.title || null,  // null 처리
+            place: event.addr1 || event.eventplace || null, // null 처리
+            date: `${event.eventstartdate || 'N/A'} ~ ${event.eventenddate || 'N/A'}` // null 처리
         };
     });
+
 
     return (
         <main>

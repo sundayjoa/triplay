@@ -2,11 +2,11 @@ import React, {useState} from 'react';
 import Link from 'next/link';
 
 interface ImageData{
-    id: string;
-    imageUrl: string;
-    description: string;
-    place: string;
-    date: string;
+    id: string; 
+    imageUrl: string | null; 
+    description: string | null; 
+    place: string | null;
+    date: string | null
 }
 
 const Slider: React.FC<{images: ImageData[]} >= ({ images }) => {
@@ -30,7 +30,7 @@ const Slider: React.FC<{images: ImageData[]} >= ({ images }) => {
             <div className='image-container'>
                 {images.slice(currentIndex, currentIndex + 3).map((image, index) => (
                     <div className="image-card" key={image.id}>
-                        <img className="image" src={image.imageUrl} alt={`Slide ${index + 1}`} />
+                        <img className="image" src={image.imageUrl ?? undefined} alt={`Slide ${index + 1}`} />
                         <div className="description"> 
                             <div className='events-title'>
                                 <h2>{image.description}</h2>
