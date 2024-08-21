@@ -12,6 +12,18 @@ interface ImageData{
 const Slider: React.FC<{images: ImageData[]} >= ({ images }) => {
     const [currentIndex, setCurrentIndex] = useState(0);
 
+    //이미지 배열이 3개 미만일 경우 부족한 슬라이드를 null 값으로 채우기
+    const filledImages = {
+        ...images,
+        ...Array(Math.max(0, 3 - images.length)).fill({
+            id: 'null',
+            imageUrl: null,
+            description: null,
+            place: null,
+            date: null
+        }),
+    };
+
     const handleNext = () => {
         if(currentIndex < images.length - 1) {
             setCurrentIndex(currentIndex + 1);
@@ -29,20 +41,20 @@ const Slider: React.FC<{images: ImageData[]} >= ({ images }) => {
             <button className='prev-btn' onClick={handlePrev} disabled={currentIndex===0}>{' <'}</button>
             <div className='image-container'>
                 {images.slice(currentIndex, currentIndex + 3).map((image, index) => (
-                    <div className="image-card" key={image.id}>
+                    <div className="image-card" key={image.id + index}>
                         <img className="image" src={image.imageUrl ?? undefined} alt={`Slide ${index + 1}`} />
                         <div className="description"> 
                             <div className='events-title'>
-                                <h2>{image.description}</h2>
-                                <p className='events-place'>{image.place}</p>
-                                <p className='events-date'>{image.date}</p>
+                                <h2>{image.description || null}</h2>
+                                <p className='events-place'>{image.place || null}</p>
+                                <p className='events-date'>{image.date || null}</p>
                             </div>
                             <Link href="#" className='events-link'>구경가기</Link>
                         </div>
                     </div>
                 ))}
             </div>
-            <button className="next-btn" onClick={handleNext} disabled={currentIndex >= images.length - 3}>{'>'}</button>
+            <button className="next-btn" onClick={handleNext} disabled={currentIndex >= filledImages.length - 3}>{'>'}</button>
         </div>
     );
 };

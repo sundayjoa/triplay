@@ -34,7 +34,7 @@ export const fetchEventsByArea = createAsyncThunk('events/fetchEventsByArea',
         const state = getState() as RootState;
         const eventapiKey = process.env.NEXT_PUBLIC_TOUR_APP_API_KEY;
         const selectedDate = state.date.selectedDate || new Date().toISOString().slice(0, 10).replace(/-/g, '');
-        let url = `http://apis.data.go.kr/B551011/KorService1/searchFestival1?serviceKey=${eventapiKey}&MobileOS=ETC&MobileApp=AppTest&arrange=D&numOfRows=20&_type=json&eventStartDate=${selectedDate}`;
+        let url = `http://apis.data.go.kr/B551011/KorService1/searchFestival1?serviceKey=${eventapiKey}&MobileOS=ETC&MobileApp=AppTest&arrange=D&numOfRows=10&_type=json&eventStartDate=${selectedDate}`;
 
         if (areaCode && areaCode !== '') {
             url += `&areaCode=${areaCode}`;
