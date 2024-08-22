@@ -47,7 +47,7 @@ interface Option {
       onChange(option.value);
       setIsOpen(false);
     };
-  
+
     return (
       <div className={`regionSelectContainer ${className}`}>
           <FaMapMarkerAlt className='icon' />

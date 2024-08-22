@@ -1,0 +1,40 @@
+@font-face {
+    font-family: 'SUITE-Regular';
+    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2304-2@1.0/SUITE-Regular.woff2') format('woff2');
+    font-weight: 400;
+    font-style: normal;
+}
+
+body{
+    font-family: 'SUITE-Regular' !important;
+    background: white;
+    min-width: 1140px !important;
+    overflow-x: auto;
+}
+
+.tours-container{
+    padding: 0px 180px;
+    width: 70%;
+    height: 250px;
+    min-width: 1140px;
+    align-items: center;
+    background-color: rgb(245, 245, 205);
+    margin: 0 auto;
+    margin-top: 180px;
+    border-radius: 20px;
+}
+
+.maintag-button {
+    padding: 10px 30px;
+    color: white;
+    border: none;
+    border-radius: 30px;
+    cursor: pointer;
+    background-color: gray;
+    margin: 30px auto;
+    font-size: 20px;
+}
+
+.maintag-button.selected {
+    background-color: rgb(25, 106, 182);
+}

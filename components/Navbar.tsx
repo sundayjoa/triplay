@@ -33,7 +33,11 @@ const Navbar = () => {
                     트립플레이
                 </Link>
                 <div>
-                    <Link href="#" className='tourist-attractions'>
+                    <Link 
+                        href="/toursPage" 
+                        className={`tourist-attractions ${pathname === '/toursPage' ? 'active' : ''}`}
+                        onClick={handleClick}
+                    >
                         관광지
                     </Link>
                     <Link 
@@ -44,7 +48,7 @@ const Navbar = () => {
                         축제/공연/행사
                     </Link>
                     <Link href="#" className='travel-courses'>
-                        숙박
+                        여행코스
                     </Link>
                 </div>
             </div>

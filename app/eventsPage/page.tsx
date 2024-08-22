@@ -19,7 +19,6 @@ const EventsPage: React.FC = () => {
     const { events, loading, error } = useSelector((state: RootState) => state.event);
     const [selectedAreaCode, setSelectedAreaCode] = useState<string>('');
     const selectedDateString = useSelector((state: RootState) => state.date.selectedDate);
-    const selectedDate = dayjs(selectedDateString).format('YYYYMMDD');
 
     //지역 선택 필터링
     useEffect(() => {
@@ -30,10 +29,10 @@ const EventsPage: React.FC = () => {
     
     useEffect(() => {
         dispatch(fetchEventsByArea({ areaCode: '' }));
-    }, [dispatch, selectedDate]);
+    }, [dispatch]);
 
-    const handleAreaChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
-        setSelectedAreaCode(event.target.value);
+    const handleAreaChange = (areaCode: string) => {
+        setSelectedAreaCode(areaCode);
     };
 
     if (loading) return <p>Loading...</p>;
@@ -53,7 +52,7 @@ const EventsPage: React.FC = () => {
     return (
         <main>
             <Navbar />
-            <RegionSelect onChange={setSelectedAreaCode} selectedAreaCode={selectedAreaCode} />
+            <RegionSelect onChange={handleAreaChange} selectedAreaCode={selectedAreaCode} />
             <Calendar />
             <Slider images={eventImages} />
             <div className="events-pages">

@@ -69,7 +69,8 @@ body{
     color: rgb(25, 106, 182);
 }
 
-.events-festivals.active {
+.events-festivals.active,
+.tourist-attractions.active {
     font-size: 32px;
     font-weight: bold !important;
     color: rgb(25, 106, 182);
