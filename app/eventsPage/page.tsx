@@ -23,24 +23,23 @@ const EventsPage: React.FC = () => {
 
     //지역 선택 필터링
     useEffect(() => {
-        dispatch(fetchEventsByArea({ areaCode: selectedAreaCode, date: selectedDate }));
-    }, [dispatch, selectedAreaCode, selectedDate]);
+        if (selectedAreaCode) {
+            dispatch(fetchEventsByArea({ areaCode: selectedAreaCode }));
+        }
+    }, [dispatch, selectedAreaCode]);
     
     useEffect(() => {
-        dispatch(fetchEventsByArea({ areaCode: '', date: selectedDate }));
+        dispatch(fetchEventsByArea({ areaCode: '' }));
     }, [dispatch, selectedDate]);
 
-    //선택된 날짜에 따라 이벤트 필터링
-    const filteredEvents = events.filter(event => {
-        const eventStart = dayjs(event.eventstartdate, 'YYYYMMDD');
-        const eventEnd = dayjs(event.eventenddate, 'YYYYMMDD');
-        return dayjs(selectedDate).isBetween(eventStart, eventEnd, null, '[]');
-    });
+    const handleAreaChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+        setSelectedAreaCode(event.target.value);
+    };
 
     if (loading) return <p>Loading...</p>;
     if (error) return <p>{error}</p>;
 
-    const eventImages = filteredEvents.map(event => {
+    const eventImages = events.map(event => {
         return {
             id: event.contentid,
             imageUrl: event.firstimage || null, // null 처리

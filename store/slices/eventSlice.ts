@@ -1,6 +1,7 @@
 import axios from 'axios';
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { RootState } from '../store';
+import dayjs from 'dayjs';
 
 interface eventsData {
     firstimage: string | null;
@@ -29,12 +30,12 @@ const initialState: eventsState = {
 };
 
 export const fetchEventsByArea = createAsyncThunk('events/fetchEventsByArea', 
-    async ({areaCode, date} : { areaCode: string; date: string }, { getState }) => {
+    async ({areaCode, date}: { areaCode: string; date: string }, { getState }) => {
     try {
         const state = getState() as RootState;
         const eventapiKey = process.env.NEXT_PUBLIC_TOUR_APP_API_KEY;
-        const selectedDate = state.date.selectedDate || new Date().toISOString().slice(0, 10).replace(/-/g, '');
-        let url = `http://apis.data.go.kr/B551011/KorService1/searchFestival1?serviceKey=${eventapiKey}&MobileOS=ETC&MobileApp=AppTest&arrange=D&numOfRows=10&_type=json&eventStartDate=${selectedDate}`;
+        const currentDate = dayjs().format('YYYYMMDD');
+        let url = `http://apis.data.go.kr/B551011/KorService1/searchFestival1?serviceKey=${eventapiKey}&MobileOS=ETC&MobileApp=AppTest&arrange=D&numOfRows=10&_type=json&eventStartDate=${currentDate}&eventEndDate=${currentDate}`;
 
         if (areaCode && areaCode !== '') {
             url += `&areaCode=${areaCode}`;
@@ -43,7 +44,7 @@ export const fetchEventsByArea = createAsyncThunk('events/fetchEventsByArea',
         const response = await axios.get(url);
         const data = response.data;
 
-        if (data && data.response && data.response.body && data.response.body.items) {
+        if (data && data.response && data.response.body && data.response.body.items && data.response.body.items.item) {
             const events = data.response.body.items.item as eventsData[];
             return events;
         } else {
