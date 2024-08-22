@@ -24,17 +24,59 @@ body{
     border-radius: 20px;
 }
 
+.maintag-button-container {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+}
+
 .maintag-button {
     padding: 10px 30px;
-    color: white;
+    color: black;
     border: none;
     border-radius: 30px;
     cursor: pointer;
-    background-color: gray;
-    margin: 30px auto;
+    background-color: rgb(187, 187, 187);
     font-size: 20px;
+    font-weight: bold;
+    margin-top: 20px;
 }
 
 .maintag-button.selected {
+    background-color: rgb(25, 106, 182) !important;
+    color: white !important;
+}
+
+.maintag-button:hover {
     background-color: rgb(25, 106, 182);
+    color: white;
+}
+
+.subtag-button-container {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    flex-wrap: wrap;
+    margin-top: 20px;
+}
+
+.subtag-button {
+    padding: 10px 30px;
+    color: black;
+    border: none;
+    border-radius: 30px;
+    cursor: pointer;
+    background-color: rgb(214, 214, 214);
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.subtag-button.selected {
+    background-color: rgb(25, 106, 182);
+    color: white;
+}
+
+.subtag-button:hover {
+    background-color: rgb(25, 106, 182);
+    color: white;
 }
