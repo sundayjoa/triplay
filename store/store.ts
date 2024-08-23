@@ -3,6 +3,7 @@ import tourReducer from './slices/tourSlice';
 import regionReducer from './slices/regionSlice';
 import dateReducer from './slices/dateSlice';
 import eventReducer from './slices/eventSlice'
+import eventBoardReducer from './slices/eventboardSlice';
 
 export const store = configureStore({
     reducer: {
@@ -10,6 +11,7 @@ export const store = configureStore({
         region: regionReducer,
         date: dateReducer,
         event: eventReducer,
+        eventboard: eventBoardReducer,
     },
 });
 

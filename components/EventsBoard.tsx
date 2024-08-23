@@ -2,10 +2,11 @@ import React, {useState} from 'react';
 import Link from 'next/link';
 
 interface BoardData {
-    id: string;
+    eventid: string;
     imageAddress: string | null;
-    place: string | null;
-    date: string | null;
+    title: string | null; 
+    eventplace: string | null;
+    eventdate: string | null;
 }
 
 const EventsBoard: React.FC<{Data: BoardData[]}> = ({Data = [] }) => {
@@ -17,9 +18,9 @@ const EventsBoard: React.FC<{Data: BoardData[]}> = ({Data = [] }) => {
                 {Data.map((item, index) => (
                     <div key={index} className='event-card'>
                         <img src={item.imageAddress ?? ''} className="event-image" />
-                        <h2 className='event-title'>제목</h2>
-                        <p className='event-place'>위치</p>
-                        <p className='event-date'>날짜</p>
+                        <h2 className='event-title'>{item.title || ''}</h2>
+                        <p className='event-place'>{item.eventplace || ''}</p>
+                        <p className='event-date'>{item.eventdate || ''}</p>
                     </div>
                 ))}
             </div>

@@ -5,6 +5,10 @@ import { useDispatch, useSelector } from 'react-redux';
 import dayjs from 'dayjs';
 import { FaCalendar } from "react-icons/fa";
 
+interface CalendarProps {
+    onMonthChange: (month: string) => void;
+}
+
 const months = [
     {value:'01', label: '1월'},
     {value:'02', label: '2월'},
@@ -20,7 +24,7 @@ const months = [
     {value:'12', label: '12월'}
 ];
 
-const Calendar: React.FC = () => {
+const Calendar: React.FC<CalendarProps> = ({onMonthChange}) => {
     const dispatch = useDispatch();
     const selectedDateString = useSelector((state: RootState) => selectDate(state));
     const currentYear = dayjs().format('YYYY');
@@ -50,6 +54,7 @@ const Calendar: React.FC = () => {
         const updatedDate = `${currentYear}${month.value}`;
         dispatch(setSelectedDate(updatedDate));
         setIsOpen(false); 
+        onMonthChange(updatedDate);
     };
 
     return (

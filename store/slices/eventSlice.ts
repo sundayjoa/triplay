@@ -29,7 +29,8 @@ const initialState: eventsState = {
     error: null,
 };
 
-export const fetchEventsByArea = createAsyncThunk('events/fetchEventsByArea', 
+//현재 진행 중인 행사 10개 가져오기
+export const fetchEventsByArea = createAsyncThunk('events/fetchEvents', 
     async ({areaCode}: { areaCode: string }, { getState }) => {
     try {
         const state = getState() as RootState;
@@ -52,6 +53,7 @@ export const fetchEventsByArea = createAsyncThunk('events/fetchEventsByArea',
         throw error;
     }
 });
+
 
 const eventSlice = createSlice({
     name: 'event',
