@@ -1,46 +1,79 @@
 import { decrementDate, incrementDate, selectDate, setSelectedDate } from '@/store/slices/dateSlice';
 import { RootState } from '@/store/store';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import dayjs from 'dayjs';
+import { FaCalendar } from "react-icons/fa";
+
+const months = [
+    {value:'01', label: '1월'},
+    {value:'02', label: '2월'},
+    {value:'03', label: '3월'},
+    {value:'04', label: '4월'},
+    {value:'05', label: '5월'},
+    {value:'06', label: '6월'},
+    {value:'07', label: '7월'},
+    {value:'08', label: '8월'},
+    {value:'09', label: '9월'},
+    {value:'10', label: '10월'},
+    {value:'11', label: '11월'},
+    {value:'12', label: '12월'}
+];
 
 const Calendar: React.FC = () => {
     const dispatch = useDispatch();
-    const selectedDateString = useSelector((state: RootState) => selectDate(state)); // 문자열로 받아옴
-    const selectedDate = dayjs(selectedDateString); // Dayjs 객체로 변환
-    const [isCalendarOpen, setIsCalendarOpen] = useState(false);
+    const selectedDateString = useSelector((state: RootState) => selectDate(state));
+    const currentYear = dayjs().format('YYYY');
+    const currentMonth = dayjs().format('MM');
 
-    const handleDateChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        const selectedDate = dayjs(event.target.value).format('YYYYMMDD');
-        dispatch(setSelectedDate(selectedDate));
-    };
+    const [isOpen, setIsOpen] = useState(false);
+    const [selectedMonth, setSelectedMonth] = useState<string>(currentMonth);
+    const currentMonthLabel = months.find(m => m.value === currentMonth)?.label || '';
+    const [selectedMonthLabel, setSelectedMonthLabel] = useState<string>(currentMonthLabel);
 
-    const handlePrevDay = () => {
-        dispatch(decrementDate()); // 날짜를 감소시킴
-    };
+    useEffect(() => {
+        if (!selectedDateString) {
+            const initialDate = `${currentYear}${currentMonth}`;
+            dispatch(setSelectedDate(initialDate));
+            setSelectedMonth(currentMonth);
+            setSelectedMonthLabel(currentMonthLabel);
+        } else {
+            const initialMonth = selectedDateString.slice(4, 6);
+            setSelectedMonth(initialMonth);
+            setSelectedMonthLabel(months.find(m => m.value === initialMonth)?.label || currentMonthLabel);
+        }
+    }, [dispatch, selectedDateString, currentYear, currentMonth, currentMonthLabel]);
 
-    const handleNextDay = () => {
-        dispatch(incrementDate()); // 날짜를 증가시킴
-    };
-
-    const toggleCalendar = () => {
-        setIsCalendarOpen(!isCalendarOpen);
+    const handleMonthChange = (month: { value: string; label: string }) => {
+        setSelectedMonth(month.value);
+        setSelectedMonthLabel(month.label);
+        const updatedDate = `${currentYear}${month.value}`;
+        dispatch(setSelectedDate(updatedDate));
+        setIsOpen(false); 
     };
 
     return (
         <div className='calendar-container'>
-            <div className='calendar-filter'>
-                <button onClick={handlePrevDay}>{'<'}</button>
-                <input
-                    className="calendar-date"
-                    type="date"
-                    value={selectedDate.format('YYYY-MM-DD')}
-                    onChange={handleDateChange}
-                />
-                <button className="nextdate-btn" onClick={handleNextDay}>{'>'}</button>
+            <FaCalendar className='icon' />
+            <div className='regionFilter' onClick={() => setIsOpen(!isOpen)}>
+                {selectedMonthLabel}
             </div>
+            {isOpen && (
+                <div className='dropdownList'>
+                    {months.map((month) => (
+                        <div
+                            key={month.value}
+                            className='dropdownItem'
+                            onClick={() => handleMonthChange(month)}
+                        >
+                            {month.label}
+                        </div>
+                    ))}
+                </div>
+            )}
         </div>
     );
 };
 
 export default Calendar;
+

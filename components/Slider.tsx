@@ -25,7 +25,7 @@ const Slider: React.FC<{images: ImageData[]} >= ({ images }) => {
     };
 
     const handleNext = () => {
-        if(currentIndex < images.length - 1) {
+        if(currentIndex < images.length - 3) {
             setCurrentIndex(currentIndex + 1);
         }
     };

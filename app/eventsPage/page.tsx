@@ -18,7 +18,6 @@ const EventsPage: React.FC = () => {
     const dispatch = useDispatch<AppDispatch>();
     const { events, loading, error } = useSelector((state: RootState) => state.event);
     const [selectedAreaCode, setSelectedAreaCode] = useState<string>('');
-    const selectedDateString = useSelector((state: RootState) => state.date.selectedDate);
 
     //지역 선택 필터링
     useEffect(() => {
@@ -52,11 +51,17 @@ const EventsPage: React.FC = () => {
     return (
         <main>
             <Navbar />
-            <RegionSelect onChange={handleAreaChange} selectedAreaCode={selectedAreaCode} />
-            <Calendar />
+            <div>
+                <h2 className='ongoing-events'>현재 진행 중인 행사</h2>
+            </div>
             <Slider images={eventImages} />
             <div className="events-pages">
-
+            </div>
+            <div className='events-container'>
+                <div>
+                    <RegionSelect onChange={handleAreaChange} selectedAreaCode={selectedAreaCode} />
+                    <Calendar />
+                </div>
             </div>
         </main>
     );

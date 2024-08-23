@@ -30,16 +30,12 @@ const initialState: eventsState = {
 };
 
 export const fetchEventsByArea = createAsyncThunk('events/fetchEventsByArea', 
-    async ({areaCode, date}: { areaCode: string; date: string }, { getState }) => {
+    async ({areaCode}: { areaCode: string }, { getState }) => {
     try {
         const state = getState() as RootState;
         const eventapiKey = process.env.NEXT_PUBLIC_TOUR_APP_API_KEY;
         const currentDate = dayjs().format('YYYYMMDD');
         let url = `http://apis.data.go.kr/B551011/KorService1/searchFestival1?serviceKey=${eventapiKey}&MobileOS=ETC&MobileApp=AppTest&arrange=D&numOfRows=10&_type=json&eventStartDate=${currentDate}&eventEndDate=${currentDate}`;
-
-        if (areaCode && areaCode !== '') {
-            url += `&areaCode=${areaCode}`;
-        }
 
         const response = await axios.get(url);
         const data = response.data;
