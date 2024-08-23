@@ -11,6 +11,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { RootState, AppDispatch } from '@/store/store';
 import dayjs from 'dayjs';
 import isBetween from 'dayjs/plugin/isBetween';
+import EventsBoard from '@/components/EventsBoard';
 
 dayjs.extend(isBetween);
 
@@ -19,7 +20,7 @@ const EventsPage: React.FC = () => {
     const { events, loading, error } = useSelector((state: RootState) => state.event);
     const [selectedAreaCode, setSelectedAreaCode] = useState<string>('');
 
-    //지역 선택 필터링
+    //지역 선택
     useEffect(() => {
         if (selectedAreaCode) {
             dispatch(fetchEventsByArea({ areaCode: selectedAreaCode }));
@@ -61,6 +62,7 @@ const EventsPage: React.FC = () => {
                 <div>
                     <RegionSelect onChange={handleAreaChange} selectedAreaCode={selectedAreaCode} />
                     <Calendar />
+                    <EventsBoard Data={eventImages}/>
                 </div>
             </div>
         </main>
