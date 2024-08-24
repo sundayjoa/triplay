@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import Link from 'next/link';
 import dayjs from 'dayjs';
 
@@ -26,7 +26,22 @@ const calculateEventStatus = (startDate: string, endDate: string): { status: str
 };
 
 const EventsBoard: React.FC<{ Data: BoardData[] }> = ({ Data = [] }) => {
-    const [filter, setFilter] = useState<'in-progress' | 'completed' | 'upcoming'>('in-progress');
+    const [filter, setFilter] = useState<'in-progress' | 'completed' | 'upcoming' >(() => {
+        return localStorage.getItem('event-filter') as 'in-progress' | 'completed' | 'upcoming';
+    });
+
+    useEffect(() => {
+        const storedFilter = localStorage.getItem('event-filter') as 'in-progress' | 'completed' | 'upcoming';
+        if (storedFilter) {
+            setFilter(storedFilter);
+        }
+    }, []);
+
+
+    const handleFilterChange = (newFilter: 'in-progress' | 'completed' | 'upcoming') => {
+        setFilter(newFilter);
+        localStorage.setItem('event-filter', newFilter);
+    };
 
     // 상태에 따라 필터링
     const filteredData = Data.filter(item => {
@@ -41,19 +56,19 @@ const EventsBoard: React.FC<{ Data: BoardData[] }> = ({ Data = [] }) => {
             {/* 필터 버튼 */}
             <div className="filter-buttons">
                 <button 
-                    onClick={() => setFilter('in-progress')} 
+                    onClick={() => handleFilterChange('in-progress')} 
                     className={`filter-button ${filter === 'in-progress' ? 'active' : ''}`}
                 >
                     진행중
                 </button>
                 <button 
-                    onClick={() => setFilter('upcoming')} 
+                    onClick={() => handleFilterChange('upcoming')} 
                     className={`filter-button ${filter === 'upcoming' ? 'active' : ''}`}
                 >
                     진행예정
                 </button>
                 <button 
-                    onClick={() => setFilter('completed')} 
+                    onClick={() => handleFilterChange('completed')} 
                     className={`filter-button ${filter === 'completed' ? 'active' : ''}`}
                 >
                     종료
