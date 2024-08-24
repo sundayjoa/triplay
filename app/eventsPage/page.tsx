@@ -66,22 +66,32 @@ const EventsPage: React.FC = () => {
     if (areaError || monthError) return <p>{areaError || monthError}</p>;
 
     // Slider에 전달할 데이터 (fetchEventsByArea에서 가져온 데이터)
-    const eventImages = areaEvents.map(event => ({
-        id: event.contentid,
-        imageUrl: event.firstimage || null,
-        description: event.title || null,
-        place: event.addr1 || event.eventplace || null,
-        date: `${event.eventstartdate || 'N/A'} ~ ${event.eventenddate || 'N/A'}`
-    }));
+    const eventImages = areaEvents.map(event => {
+        const eventStartDate = event.eventstartdate ? dayjs(event.eventstartdate, 'YYYYMMDD').format('YYYY.MM.DD') : 'N/A';
+        const eventEndDate = event.eventenddate ? dayjs(event.eventenddate, 'YYYYMMDD').format('YYYY.MM.DD') : 'N/A';
+    
+        return {
+            id: event.contentid,
+            imageUrl: event.firstimage || null,
+            description: event.title || null,
+            place: event.addr1 || event.eventplace || null,
+            date: `${eventStartDate} ~ ${eventEndDate}` // 템플릿 리터럴 사용
+        };
+    });
 
     // EventsBoard에 전달할 데이터 (fetchEventsByAreaAndMonth에서 가져온 데이터)
-    const eventsData = monthEvents.map(eventboard => ({
+    const eventsData = monthEvents.map(eventboard => {
+        const eventStartDate = eventboard.eventstartdate ? dayjs(eventboard.eventstartdate, 'YYYYMMDD').format('YYYY.MM.DD') : 'N/A';
+        const eventEndDate = eventboard.eventenddate ? dayjs(eventboard.eventenddate, 'YYYYMMDD').format('YYYY.MM.DD') : 'N/A';
+        
+        return {
         eventid: eventboard.contentid,
         imageAddress: eventboard.firstimage || null,
         title: eventboard.title || null,
         eventplace: eventboard.addr1 || eventboard.eventplace || null,
-        eventdate: `${eventboard.eventstartdate || 'N/A'} ~ ${eventboard.eventenddate || 'N/A'}`
-    }));
+        eventdate: `${eventStartDate} ~ ${eventEndDate}`
+        };
+    });
 
 
     return (
