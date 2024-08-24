@@ -26,28 +26,32 @@ const calculateEventStatus = (startDate: string, endDate: string): { status: str
 };
 
 const EventsBoard: React.FC<{ Data: BoardData[] }> = ({ Data = [] }) => {
-    const [filter, setFilter] = useState<'in-progress' | 'completed' | 'upcoming' >(() => {
-        return localStorage.getItem('event-filter') as 'in-progress' | 'completed' | 'upcoming';
-    });
+    const [filter, setFilter] = useState<'in-progress' | 'completed' | 'upcoming' | null>(null);
 
     useEffect(() => {
-        const storedFilter = localStorage.getItem('event-filter') as 'in-progress' | 'completed' | 'upcoming';
-        if (storedFilter) {
-            setFilter(storedFilter);
+        // 클라이언트 사이드에서만 localStorage에 접근
+        if (typeof window !== 'undefined') {
+            const storedFilter = localStorage.getItem('event-filter') as 'in-progress' | 'completed' | 'upcoming' | null;
+            if (storedFilter) {
+                setFilter(storedFilter);
+            }
         }
     }, []);
 
-
     const handleFilterChange = (newFilter: 'in-progress' | 'completed' | 'upcoming') => {
         setFilter(newFilter);
-        localStorage.setItem('event-filter', newFilter);
+        if (typeof window !== 'undefined') {
+            localStorage.setItem('event-filter', newFilter);
+        }
     };
 
     // 상태에 따라 필터링
-    const filteredData = Data.filter(item => {
-        const { className } = calculateEventStatus(item.eventdate?.split(' ~ ')[0] || '', item.eventdate?.split(' ~ ')[1] || '');
-        return className === filter;
-    });
+    const filteredData = filter
+        ? Data.filter(item => {
+            const { className } = calculateEventStatus(item.eventdate?.split(' ~ ')[0] || '', item.eventdate?.split(' ~ ')[1] || '');
+            return className === filter;
+        })
+        : Data;
 
     return (
         <main>
@@ -75,21 +79,22 @@ const EventsBoard: React.FC<{ Data: BoardData[] }> = ({ Data = [] }) => {
                 </button>
             </div>
             <hr className='devider' />
-
-            <div className='event-card-container'>
-                {filteredData.map((item, index) => {
-                    const { status, className } = calculateEventStatus(item.eventdate?.split(' ~ ')[0] || '', item.eventdate?.split(' ~ ')[1] || '');
-                    return (
-                        <div key={index} className='event-card'>
-                            <div className={`event-status ${className}`}>{status}</div>
-                            <img src={item.imageAddress ?? ''} className="event-image" />
-                            <h2 className='event-title'>{item.title || ''}</h2>
-                            <p className='event-place'>{item.eventplace || ''}</p>
-                            <p className='event-date'>{item.eventdate || ''}</p>
-                        </div>
-                    );
-                })}
-            </div>
+            <a href="#">
+                <div className='event-card-container'>
+                    {filteredData.map((item, index) => {
+                        const { status, className } = calculateEventStatus(item.eventdate?.split(' ~ ')[0] || '', item.eventdate?.split(' ~ ')[1] || '');
+                        return (
+                            <div key={index} className='event-card'>
+                                <div className={`event-status ${className}`}>{status}</div>
+                                <img src={item.imageAddress ?? ''} className="event-image" />
+                                <h2 className='event-title'>{item.title || ''}</h2>
+                                <p className='event-place'>{item.eventplace || ''}</p>
+                                <p className='event-date'>{item.eventdate || ''}</p>
+                            </div>
+                        );
+                    })}
+                </div>
+            </a>
         </main>
     );
 };
