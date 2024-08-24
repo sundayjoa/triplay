@@ -1,5 +1,6 @@
 import React, {useState} from 'react';
 import Link from 'next/link';
+import dayjs from 'dayjs';
 
 interface BoardData {
     eventid: string;
@@ -9,20 +10,70 @@ interface BoardData {
     eventdate: string | null;
 }
 
-const EventsBoard: React.FC<{Data: BoardData[]}> = ({Data = [] }) => {
-    return(
+//행사 진행 여부
+const calculateEventStatus = (startDate: string, endDate: string): { status: string, className: string, order: number } => {
+    const today = dayjs();
+    const start = dayjs(startDate, 'YYYYMMDD');
+    const end = dayjs(endDate, 'YYYYMMDD');
+
+    if(today.isBefore(start)) {
+        return { status: `D-${start.diff(today, 'day')}`, className: 'upcoming', order: 1 };
+    } else if (today.isAfter(end)) {
+        return { status: '종료', className: 'completed', order: 3};
+    } else {
+        return { status: '진행 중', className: 'in-progress', order: 2};
+    }
+};
+
+const EventsBoard: React.FC<{ Data: BoardData[] }> = ({ Data = [] }) => {
+    const [filter, setFilter] = useState<'in-progress' | 'completed' | 'upcoming'>('in-progress');
+
+    // 상태에 따라 필터링
+    const filteredData = Data.filter(item => {
+        const { className } = calculateEventStatus(item.eventdate?.split(' ~ ')[0] || '', item.eventdate?.split(' ~ ')[1] || '');
+        return className === filter;
+    });
+
+    return (
         <main>
             <h1 className='event-board-title'>축제/공연/행사</h1>
+            
+            {/* 필터 버튼 */}
+            <div className="filter-buttons">
+                <button 
+                    onClick={() => setFilter('in-progress')} 
+                    className={`filter-button ${filter === 'in-progress' ? 'active' : ''}`}
+                >
+                    진행중
+                </button>
+                <button 
+                    onClick={() => setFilter('upcoming')} 
+                    className={`filter-button ${filter === 'upcoming' ? 'active' : ''}`}
+                >
+                    진행예정
+                </button>
+                <button 
+                    onClick={() => setFilter('completed')} 
+                    className={`filter-button ${filter === 'completed' ? 'active' : ''}`}
+                >
+                    종료
+                </button>
+            </div>
             <hr className='devider' />
+
             <div className='event-card-container'>
-                {Data.map((item, index) => (
-                    <div key={index} className='event-card'>
-                        <img src={item.imageAddress ?? ''} className="event-image" />
-                        <h2 className='event-title'>{item.title || ''}</h2>
-                        <p className='event-place'>{item.eventplace || ''}</p>
-                        <p className='event-date'>{item.eventdate || ''}</p>
-                    </div>
-                ))}
+                {filteredData.map((item, index) => {
+                    const { status, className } = calculateEventStatus(item.eventdate?.split(' ~ ')[0] || '', item.eventdate?.split(' ~ ')[1] || '');
+                    return (
+                        <div key={index} className='event-card'>
+                            <div className={`event-status ${className}`}>{status}</div>
+                            <img src={item.imageAddress ?? ''} className="event-image" />
+                            <h2 className='event-title'>{item.title || ''}</h2>
+                            <p className='event-place'>{item.eventplace || ''}</p>
+                            <p className='event-date'>{item.eventdate || ''}</p>
+                        </div>
+                    );
+                })}
             </div>
         </main>
     );
