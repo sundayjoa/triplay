@@ -79,22 +79,28 @@ const EventsBoard: React.FC<{ Data: BoardData[] }> = ({ Data = [] }) => {
                 </button>
             </div>
             <hr className='devider' />
-            <a href="#">
+
                 <div className='event-card-container'>
                     {filteredData.map((item, index) => {
                         const { status, className } = calculateEventStatus(item.eventdate?.split(' ~ ')[0] || '', item.eventdate?.split(' ~ ')[1] || '');
                         return (
-                            <div key={index} className='event-card'>
-                                <div className={`event-status ${className}`}>{status}</div>
-                                <img src={item.imageAddress ?? ''} className="event-image" />
-                                <h2 className='event-title'>{item.title || ''}</h2>
-                                <p className='event-place'>{item.eventplace || ''}</p>
-                                <p className='event-date'>{item.eventdate || ''}</p>
-                            </div>
+                            <Link
+                                key={index}
+                                href={`/eventsPage/${item.eventid}?imageAddress=${encodeURIComponent(item.imageAddress || '')}`}
+                                passHref
+                                legacyBehavior
+                            >
+                                <div key={index} className='event-card'>
+                                    <div className={`event-status ${className}`}>{status}</div>
+                                    <img src={item.imageAddress ?? ''} className="event-image" />
+                                    <h2 className='event-title'>{item.title || ''}</h2>
+                                    <p className='event-place'>{item.eventplace || ''}</p>
+                                    <p className='event-date'>{item.eventdate || ''}</p>
+                                </div>
+                                </Link>
                         );
                     })}
                 </div>
-            </a>
         </main>
     );
 };
