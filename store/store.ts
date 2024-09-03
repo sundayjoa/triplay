@@ -4,6 +4,7 @@ import regionReducer from './slices/regionSlice';
 import dateReducer from './slices/dateSlice';
 import eventReducer from './slices/eventSlice'
 import eventBoardReducer from './slices/eventboardSlice';
+import eventdetailReducer from './slices/eventdetailSlice';
 
 export const store = configureStore({
     reducer: {
@@ -12,6 +13,7 @@ export const store = configureStore({
         date: dateReducer,
         event: eventReducer,
         eventboard: eventBoardReducer,
+        eventdetail: eventdetailReducer,
     },
 });
 

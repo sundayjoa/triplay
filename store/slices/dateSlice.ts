@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { RootState } from '../store';
-import dayjs, { Dayjs } from 'dayjs';
+import dayjs from 'dayjs';
 
 interface DateState {
     selectedDate: string; 

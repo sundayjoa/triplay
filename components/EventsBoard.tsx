@@ -38,6 +38,11 @@ const EventsBoard: React.FC<{ Data: BoardData[] }> = ({ Data = [] }) => {
         }
     }, []);
 
+    const handleClick = (eventid: string) => {
+        console.log(eventid); // 클릭된 eventid만 출력
+        // 여기에 추가로 클릭된 eventid에 대해 원하는 작업을 수행할 수 있음
+    };
+
     const handleFilterChange = (newFilter: 'in-progress' | 'completed' | 'upcoming') => {
         setFilter(newFilter);
         if (typeof window !== 'undefined') {
@@ -86,11 +91,15 @@ const EventsBoard: React.FC<{ Data: BoardData[] }> = ({ Data = [] }) => {
                         return (
                             <Link
                                 key={index}
-                                href={`/eventsPage/${item.eventid}?imageAddress=${encodeURIComponent(item.imageAddress || '')}`}
+                                href={`/eventsPage/${item.eventid}`}
                                 passHref
                                 legacyBehavior
                             >
-                                <div key={index} className='event-card'>
+                                <div
+                                    key={index}
+                                    className='event-card'
+                                    onClick={() => handleClick(item.eventid)} // 클릭 시 handleClick 호출
+                                >
                                     <div className={`event-status ${className}`}>{status}</div>
                                     <img src={item.imageAddress ?? ''} className="event-image" />
                                     <h2 className='event-title'>{item.title || ''}</h2>
